@@ -38,7 +38,7 @@ public class ActionKeywords {
 		
 /*		To be used for grid*/
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
-	    driver = new RemoteWebDriver(new URL("http://192.168.43.42:4444/wd/hub"), capability);
+	    driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capability);
 	}
 
 	public static void navigate(String obj) {
