@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Test;
 
 import config.ActionKeywords;
 import config.Constants;
@@ -44,7 +43,7 @@ public class DriverScriptTest {
 		}
 		
 	}
-	@Test (threadPoolSize = 3, invocationCount = 10,  timeOut = 10000)
+	//@Test (threadPoolSize = 3, invocationCount = 10,  timeOut = 10000)
 	public static void TestMethodMain() throws Exception {
 
 		String datasheetpath = Constants.Path_TestData;
