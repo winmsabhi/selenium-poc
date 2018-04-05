@@ -7,18 +7,22 @@ public class Constants {
 	// Declared as 'final', so that the value of this variable can be changed
 	// 'String' & 'int' are the data type for storing a type of value
 	public static final String URL = "http://www.store.demoqa.com";
-	public static final String Path_TestData = "C:\\Users\\winms\\eclipse-workspace\\KeywordDriven\\src\\dataEngine\\DataEngine.xlsx";
-	public static final String File_TestData = "DataEngine.xlsx";
-	public static final String Path_OR = "C:\\Users\\winms\\eclipse-workspace\\KeywordDriven\\src\\config\\OR.txt";
+	public static final String Path_TestData = "D:\\Selenium Files\\Git Project\\MavenTestProject3\\src\\main\\java\\dataEngine\\DataEngine1.xlsx";
+	public static final String File_TestData = "DataEngine1.xlsx";
+	public static final String Path_OR = "D:\\Selenium Files\\Git Project\\MavenTestProject3\\src\\main\\java\\config\\OR.txt";
 	// List of Data Sheet Column Numbers
 	public static final int Col_TestCaseID = 0;
+	public static final int Col_RunAble = 2;
+	public static final int Col_Browser = 3;
 	public static final int Col_TestScenarioID = 1;
 	public static final int Col_PageObject = 3;
 	public static final int Col_ActionKeyword = 4;
 
-	// List of Data Engine Excel sheets
-	public static final String Sheet_TestSteps = "Sheet1";
+	public static final int Col_RunMode = 2;
 
+	// List of Data Engine Excel sheets
+	public static final String Sheet_TestSteps = "TestSteps";
+	public static final String Sheet_TestCases = "TestCases";
 	// List of Test Data
 	public static final String UserName = "abhilash10105@gmail.com";
 	public static final String Password = "PaSsWoRd";

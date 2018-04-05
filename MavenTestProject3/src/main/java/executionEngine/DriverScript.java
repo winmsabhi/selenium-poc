@@ -5,8 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import config.ActionKeywords;
 import config.Constants;
@@ -45,10 +49,14 @@ public class DriverScript {
 	public static void main(String[] args) throws Exception {
 
 		String datasheetpath = Constants.Path_TestData;
-		ExcelUtils.setExcelFile(datasheetpath, Constants.Sheet_TestSteps);
+		FileInputStream file = new FileInputStream(datasheetpath);
+		ExcelUtils.setExcelFile(datasheetpath);
+		Map<Integer, String> testsToRun = ExcelUtils.getRunableTests(Constants.Sheet_TestCases);
+		
+		
 		for (int irow = 1; irow <= 9; irow++) {
-			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword);
-			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject);
+			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
+			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject, Constants.Sheet_TestSteps);
 			execute_Actions();
 		}
 	}

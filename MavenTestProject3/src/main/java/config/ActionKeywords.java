@@ -2,22 +2,18 @@ package config;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import net.bytebuddy.utility.RandomString;
 
 public class ActionKeywords {
 	public static WebDriver driver;
@@ -37,7 +33,12 @@ public class ActionKeywords {
 //		driver = new RemoteWebDriver(remoteAddress, capabilities);
 		
 /*		To be used for grid*/
+		createDriver();
+	}
+
+	private static void createDriver() throws MalformedURLException {
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
+		capability.setCapability("session", RandomString.make(3));
 	    driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capability);
 	}
 

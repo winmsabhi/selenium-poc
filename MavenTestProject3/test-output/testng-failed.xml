@@ -5,7 +5,8 @@
     <classes>
       <class name="executionEngine.DriverScriptTest">
         <methods>
-          <include name="TestMethodMain"/>
+          <include name="runTest" invocation-numbers="1 0"/>
+          <include name="prepareOr"/>
         </methods>
       </class> <!-- executionEngine.DriverScriptTest -->
     </classes>
