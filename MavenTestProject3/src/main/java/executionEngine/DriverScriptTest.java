@@ -22,21 +22,19 @@ import utilities.ExcelUtils;
 public class DriverScriptTest {
 
 	public static WebDriver driver = null;
-	public static Method method[];
-	public static ActionKeywords actionkeywords;
-	public static String actionkeyword;
-	public static String pageObject;
+	
+	public String actionkeyword;
+	public String pageObject;
 	public static Properties OR;
 
-	@BeforeSuite
-	private static void prepareOr() throws Exception {
+	/*@BeforeSuite
+	private void prepareOr() throws Exception {
 		System.out.println(Constants.Path_TestData);
-		actionkeywords = new ActionKeywords();
-		method = actionkeywords.getClass().getMethods();
-		String Path_OR = Constants.Path_OR;/*
+		
+		String Path_OR = Constants.Path_OR;
 											 * String datasheetpath = Constants.Path_TestData;
 											 * ExcelUtils.setExcelFile(datasheetpath);
-											 */
+											 
 		FileInputStream fs;
 		try {
 			fs = new FileInputStream(Path_OR);
@@ -54,11 +52,11 @@ public class DriverScriptTest {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	@DataProvider(name = "TestsToRun", parallel = true)
 	public static Object[][] TestsToRun() throws Exception {
-		prepareOr();
+//		prepareOr();
 		Map<Integer, String> testList = ExcelUtils.getRunableTests(Constants.Sheet_TestCases);
 		Object[][] obj = new Object[testList.size()][1];
 		for (int i = 0; i < testList.size(); i++) {
@@ -71,7 +69,7 @@ public class DriverScriptTest {
 	}
 
 	@Test(dataProvider = "TestsToRun", threadPoolSize = 5, invocationCount = 1)
-	public static void runTest(Map<Object, Object> map)
+	public void runTest(Map<Object, Object> map)
 			throws Exception, IllegalAccessException, InvocationTargetException {
 		String datasheetpath = Constants.Path_TestData;
 		System.out.println(map.toString());
@@ -79,17 +77,9 @@ public class DriverScriptTest {
 		for (int irow = 1; irow <= 9; irow++) {
 			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
 			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject, Constants.Sheet_TestSteps);
-			execute_Actions();
+			Executor actionExecutor = new Executor();
+			actionExecutor.executeAction(actionkeyword, pageObject);
 		}
 	}
 
-	private static void execute_Actions()
-			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		for (int i = 0; i < method.length; i++) {
-			if (method[i].getName().equals(actionkeyword)) {
-				method[i].invoke(actionkeywords, OR.getProperty(pageObject));
-				break;
-			}
-		}
-	}
 }

@@ -16,9 +16,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import net.bytebuddy.utility.RandomString;
 
 public class ActionKeywords {
-	public static WebDriver driver;
+	public WebDriver driver;
 	
-	public static void openBrowser(String obj) throws Exception {
+	public void openBrowser(String obj) throws Exception {
 		/*System.setProperty("webdriver.gecko.driver",
 				"C:\\\\Users\\\\winms\\\\eclipse-workspace\\\\MavenTestProject3\\\\src\\\\main\\\\java\\\\exes\\geckodriver.exe");
 		driver = new FirefoxDriver();*/
@@ -36,13 +36,13 @@ public class ActionKeywords {
 		createDriver();
 	}
 
-	private static void createDriver() throws MalformedURLException {
+	private void createDriver() throws MalformedURLException {
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
 		capability.setCapability("session", RandomString.make(3));
 	    driver = new RemoteWebDriver(new URL("http://192.168.0.104:4444/wd/hub"), capability);
 	}
 
-	public static void navigate(String obj) {
+	public void navigate(String obj) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(Constants.URL);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -51,17 +51,17 @@ public class ActionKeywords {
 		
 	}
 
-	public static void click(String obj) {
+	public void click(String obj) {
 		/*WebDriverWait wait = new WebDriverWait(driver, 30);
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(obj)));*/
 		driver.findElement(By.id("account")).click();
 	}
 
-	public static void input_Username(String obj) {
+	public void input_Username(String obj) {
 		driver.findElement(By.id("log")).sendKeys(Constants.UserName);
 	}
 
-	public static void input_Password(String obj) {
+	public void input_Password(String obj) {
 		driver.findElement(By.id("pwd")).sendKeys(Constants.Password);
 	}
 
@@ -77,7 +77,7 @@ public class ActionKeywords {
 		driver.findElement(By.xpath(".//*[@id='account_logout']/a")).click();
 	}*/
 
-	public static void closeBrowser(String obj) {
+	public void closeBrowser(String obj) {
 		driver.quit();
 	}
 
