@@ -54,14 +54,21 @@ public class ActionKeywords {
 	}
 
 	private WebDriver createDriver() throws MalformedURLException, Exception {
+		/*
+		 * System.setProperty("webdriver.gecko.driver",
+		 * "C:\\\\Users\\\\winms\\\\eclipse-workspace\\\\MavenTestProject3\\\\src\\\\main\\\\java\\\\exes\\geckodriver.exe"
+		 * ); driver = new FirefoxDriver();
+		 */
+		
+		
+		
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
 		capability.setCapability("session", RandomString.make(3));
-		driver = new RemoteWebDriver(new URL("http://192.168.43.42:4444/wd/hub"), capability);
+		driver = new RemoteWebDriver(new URL("http://192.168.0.106:4444/wd/hub"), capability);
 		System.out.println("Creating Browser" + capability.getCapability("session").toString());
 		System.out.println(driver.getWindowHandle());
-//		Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		System.out.println("Navigating on Browser" + cap.getCapability("session").toString());
-//		Thread.sleep(10000);
+		
+		
 		return driver;
 	}
 
@@ -77,10 +84,10 @@ public class ActionKeywords {
 
 	public void click(String obj) {
 		WebDriverWait wait = new WebDriverWait(this.driver, 30);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("log")));
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("account")));
 		//Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
 //		Log.info("Clicking on Browser" + cap.getCapability("session").toString());
-//		element.click();
+		element.click();
 	}
 
 	public void input_Username(String obj) {

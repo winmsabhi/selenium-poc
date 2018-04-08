@@ -47,7 +47,7 @@ public class DriverScript {
 	}
 
 	public static void main(String[] args) throws Exception {
-
+		System.out.println(Constants.localDir);
 		String datasheetpath = Constants.Path_TestData;
 		FileInputStream file = new FileInputStream(datasheetpath);
 		ExcelUtils.setExcelFile(datasheetpath);

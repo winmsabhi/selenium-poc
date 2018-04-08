@@ -6,10 +6,11 @@ public class Constants {
 	// Declared as 'static', so that we do not need to instantiate a class object
 	// Declared as 'final', so that the value of this variable can be changed
 	// 'String' & 'int' are the data type for storing a type of value
+	public static String localDir = System.getProperty("user.dir");
 	public static final String URL = "http://www.store.demoqa.com";
-	public static final String Path_TestData = "D:\\Selenium Files\\Git Project\\MavenTestProject3\\src\\main\\java\\dataEngine\\DataEngine1.xlsx";
+	public static final String Path_TestData = localDir +"/src/main/java/dataEngine/DataEngine1.xlsx";
 	public static final String File_TestData = "DataEngine1.xlsx";
-	public static final String Path_OR = "D:\\Selenium Files\\Git Project\\MavenTestProject3\\src\\main\\java\\config\\OR.txt";
+	public static final String Path_OR = localDir +"/src/main/java/config/OR.txt";
 	// List of Data Sheet Column Numbers
 	public static final int Col_TestCaseID = 0;
 	public static final int Col_RunAble = 2;

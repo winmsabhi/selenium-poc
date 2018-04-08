@@ -7,13 +7,13 @@ import java.util.Properties;
 import config.Constants;
 import utilities.ExcelUtils;
 
-public class DriverThreaded implements Runnable{
+public class DriverThreaded implements Runnable {
 
 	public Executor actionExecutor;
 	public String actionkeyword;
 	public String pageObject;
 	public Properties OR;
-	
+
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Map<Integer, String> testList = ExcelUtils.getRunableTests(Constants.Sheet_TestCases);
@@ -21,10 +21,12 @@ public class DriverThreaded implements Runnable{
 			(new Thread(new DriverThreaded(test))).start();
 		}
 	}
+
 	public void run() {
+
 		System.out.println("Starting Thread");
 		String datasheetpath = Constants.Path_TestData;
-		//System.out.println(test.toString());
+		// System.out.println(test.toString());
 		try {
 			ExcelUtils.setExcelFile(datasheetpath);
 		} catch (Exception e) {
@@ -46,9 +48,9 @@ public class DriverThreaded implements Runnable{
 			}
 		}
 	}
-	
+
 	public DriverThreaded(String test) {
-		
+
 	}
 
 }
