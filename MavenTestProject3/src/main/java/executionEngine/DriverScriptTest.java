@@ -21,8 +21,8 @@ import utilities.ExcelUtils;
 
 public class DriverScriptTest {
 
-	public static WebDriver driver = null;
-	
+	//public static WebDriver driver;
+	public Executor actionExecutor;
 	public String actionkeyword;
 	public String pageObject;
 	public static Properties OR;
@@ -50,12 +50,13 @@ public class DriverScriptTest {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			, parallel = true
 		}
 
 	}*/
 
 	@DataProvider(name = "TestsToRun", parallel = true)
-	public static Object[][] TestsToRun() throws Exception {
+	public Object[][] TestsToRun() throws Exception {
 //		prepareOr();
 		Map<Integer, String> testList = ExcelUtils.getRunableTests(Constants.Sheet_TestCases);
 		Object[][] obj = new Object[testList.size()][1];
@@ -74,10 +75,11 @@ public class DriverScriptTest {
 		String datasheetpath = Constants.Path_TestData;
 		System.out.println(map.toString());
 		ExcelUtils.setExcelFile(datasheetpath);
+		actionExecutor = new Executor();
 		for (int irow = 1; irow <= 9; irow++) {
 			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
 			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject, Constants.Sheet_TestSteps);
-			Executor actionExecutor = new Executor();
+			
 			actionExecutor.executeAction(actionkeyword, pageObject);
 		}
 	}

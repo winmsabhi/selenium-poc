@@ -1,0 +1,7 @@
+<suite name="First Suite" verbose="1" parallel = "instances" thread-count = "3">
+	<test name="First Test">
+		<classes>
+			<class name="executionEngine.DriverScriptTest"></class>
+		</classes>
+	</test>
+</suite> 
