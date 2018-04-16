@@ -55,13 +55,13 @@ public class ExcelUtils {
 		return CellData;
 	}
 
-	private static int getRowContains(String sTestCaseName, int colNum, String sheetname) {
+	public static int getRowContains(String sTestCaseName, String sheetname) {
 		// TODO Auto-generated method stub
 		int i;
 		Sheet = Workbook.getSheet(sheetname);
 		int rowCount = getRowCount(sheetname);
 		for (i = 0; i < rowCount; i++) {
-			if (ExcelUtils.getCellData(i, colNum, sheetname).equalsIgnoreCase(sTestCaseName)) {
+			if (ExcelUtils.getCellData(i, Constants.Col_TestCaseID, sheetname).equalsIgnoreCase(sTestCaseName)) {
 				break;
 			}
 		}
@@ -76,9 +76,9 @@ public class ExcelUtils {
 		return number;
 	}
 
-	private static int getTestStepsCount(String sheetname, String testcaseid, int testcasestart) {
-		for (int i = testcasestart; i < getRowCount(sheetname); i++) {
-			if (!sheetname.equals(getCellData(i, Constants.Col_TestCaseID, sheetname))) {
+	public static int getTestStepsCount(String sheetname, String testcasename) {
+		for (int i = getRowContains(testcasename, sheetname); i < getRowCount(sheetname); i++) {
+			if (!testcasename.equals(getCellData(i, Constants.Col_TestCaseID, sheetname))) {
 				int number = i;
 				return number;
 			}

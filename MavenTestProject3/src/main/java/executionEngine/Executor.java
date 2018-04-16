@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.xml.DOMConfigurator;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 
 import config.ActionKeywords;
 import config.Constants;
+import utilities.ExcelUtils;
 
 public class Executor {
 	public Method[] method;
@@ -20,12 +22,13 @@ public class Executor {
 	public static Properties OR;
 	public String actionkeyword;
 	public String pageObject;
-	static int count = 0;
+	private String testCaseName = null;
+	private String browser = null;
+	private int testStepCount = 0;
+	private int testStartRowNumber = 0;
 	public WebDriver driver = null;
 
-	public Executor(){
-		count += 1;
-		System.out.println("Created Executor Object " + count);
+	public Executor() {
 		try {
 			prepareOr();
 			actionkeywords = new ActionKeywords();
@@ -36,9 +39,35 @@ public class Executor {
 		}
 	}
 
+	public Executor(String testList) {
+		this();
+		testCaseName = testList.split(",")[0];
+		browser=testList.split(",")[1];
+		testStartRowNumber = ExcelUtils.getRowContains(testCaseName, Constants.Sheet_TestSteps);
+		testStepCount = ExcelUtils.getTestStepsCount(Constants.Sheet_TestSteps, testCaseName);
+		System.out.println("Starting Executor for "+ testCaseName + " on " +browser);
+		//ExcelUtils.getTestStepsCount(Constants.Sheet_TestSteps, testCaseName);
+		for (int irow = testStartRowNumber; irow <= testStepCount; irow++) {
+			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
+			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+			try {
+				executeAction(actionkeyword, pageObject);
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 	public void executeAction(String actionKeyword, String pageObject)
 			throws IllegalAccessException, InvocationTargetException {
-		System.out.println(actionkeywords.driver == null ? "null" : actionkeywords.driver.getWindowHandle().toString() + " action "+ actionKeyword);
+
+		System.out.println(actionkeywords.driver == null ? "null"
+				: actionkeywords.driver.getWindowHandle().toString() + " action " + actionKeyword);
 		for (int i = 0; i < method.length; i++) {
 			if (method[i].getName().equals(actionKeyword)) {
 				method[i].invoke(actionkeywords, OR.getProperty(pageObject));
