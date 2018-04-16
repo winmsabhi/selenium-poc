@@ -20,6 +20,7 @@ import utilities.Log;
 public class ActionKeywords {
 	public WebDriver driver = null;
 	static int count = 0;
+	BrowserEnum browser;
 
 	public ActionKeywords() {
 		count += 1;
@@ -49,26 +50,43 @@ public class ActionKeywords {
 		// driver = new RemoteWebDriver(remoteAddress, capabilities);
 
 		/* To be used for grid */
-		this.driver = createDriver();
-		System.out.println(driver.getWindowHandle());
+		this.driver = createDriver(obj);
+		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
-	private WebDriver createDriver() throws MalformedURLException, Exception {
+	private WebDriver createDriver(String obj) throws MalformedURLException, Exception {
 		/*
 		 * System.setProperty("webdriver.gecko.driver",
 		 * "C:\\\\Users\\\\winms\\\\eclipse-workspace\\\\MavenTestProject3\\\\src\\\\main\\\\java\\\\exes\\geckodriver.exe"
 		 * ); driver = new FirefoxDriver();
 		 */
-		
-		
-		
-		DesiredCapabilities capability = DesiredCapabilities.firefox();
+		DesiredCapabilities capability;
+		switch (BrowserEnum.valueOf(obj.toUpperCase())) {
+		case CHROME:
+			capability = DesiredCapabilities.chrome();
+			break;
+		case EDGE:
+			capability = DesiredCapabilities.edge();
+			break;
+		case FIREFOX:
+			capability = DesiredCapabilities.firefox();
+			break;
+		case INTERNETEXPLORER:
+			capability = DesiredCapabilities.internetExplorer();
+			break;
+		case OPERA:
+			capability = DesiredCapabilities.opera();
+			break;
+		default:
+			capability = DesiredCapabilities.firefox();
+			break;
+		}
+
 		capability.setCapability("session", RandomString.make(3));
 		driver = new RemoteWebDriver(new URL("http://192.168.0.106:4444/wd/hub"), capability);
 		System.out.println("Creating Browser" + capability.getCapability("session").toString());
 		System.out.println(driver.getWindowHandle());
-		
-		
+
 		return driver;
 	}
 
@@ -77,29 +95,31 @@ public class ActionKeywords {
 		this.driver.get(Constants.URL);
 		WebDriverWait wait = new WebDriverWait(this.driver, 30);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("account")));
-//		Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		Log.info("Navigating on Browser" + cap.getCapability("session").toString());
+		// Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
+		// Log.info("Navigating on Browser" + cap.getCapability("session").toString());
 
 	}
 
 	public void click(String obj) {
 		WebDriverWait wait = new WebDriverWait(this.driver, 30);
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("account")));
-		//Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		Log.info("Clicking on Browser" + cap.getCapability("session").toString());
+		// Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
+		// Log.info("Clicking on Browser" + cap.getCapability("session").toString());
 		element.click();
 	}
 
 	public void input_Username(String obj) {
 		this.driver.findElement(By.id("log")).sendKeys(Constants.UserName);
-//		Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		Log.info("Entering Data on Browser" + cap.getCapability("session").toString());
+		// Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
+		// Log.info("Entering Data on Browser" +
+		// cap.getCapability("session").toString());
 	}
 
 	public void input_Password(String obj) {
 		this.driver.findElement(By.id("pwd")).sendKeys(Constants.Password);
-//		Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		Log.info("Entering Data on Browser" + cap.getCapability("session").toString());
+		// Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
+		// Log.info("Entering Data on Browser" +
+		// cap.getCapability("session").toString());
 	}
 
 	/*
@@ -118,8 +138,9 @@ public class ActionKeywords {
 
 	public void closeBrowser(String obj) {
 		this.driver.quit();
-//		Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
-//		Log.info("Entering Data on Browser" + cap.getCapability("session").toString());
+		// Capabilities cap = ((RemoteWebDriver) this.driver).getCapabilities();
+		// Log.info("Entering Data on Browser" +
+		// cap.getCapability("session").toString());
 	}
 
 }

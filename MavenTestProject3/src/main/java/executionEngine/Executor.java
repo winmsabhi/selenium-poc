@@ -46,6 +46,12 @@ public class Executor {
 		testStartRowNumber = ExcelUtils.getRowContains(testCaseName, Constants.Sheet_TestSteps);
 		testStepCount = ExcelUtils.getTestStepsCount(Constants.Sheet_TestSteps, testCaseName);
 		System.out.println("Starting Executor for "+ testCaseName + " on " +browser);
+		try {
+			actionkeywords.openBrowser(browser);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//ExcelUtils.getTestStepsCount(Constants.Sheet_TestSteps, testCaseName);
 		for (int irow = testStartRowNumber; irow <= testStepCount; irow++) {
 			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
@@ -66,8 +72,6 @@ public class Executor {
 	public void executeAction(String actionKeyword, String pageObject)
 			throws IllegalAccessException, InvocationTargetException {
 
-		System.out.println(actionkeywords.driver == null ? "null"
-				: actionkeywords.driver.getWindowHandle().toString() + " action " + actionKeyword);
 		for (int i = 0; i < method.length; i++) {
 			if (method[i].getName().equals(actionKeyword)) {
 				method[i].invoke(actionkeywords, OR.getProperty(pageObject));
