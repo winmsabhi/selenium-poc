@@ -1,0 +1,1 @@
+java  -Dwebdriver.gecko.driver="D:\Selenium Files\geckodriver.exe" -jar .\selenium-server-standalone-3.11.0.jar -role node -hub http://192.168.0.106:4444/grid/register -browser "browserName=firefox, version=56.0, firefox_binary=C:\Program Files\Mozilla Firefox\firefox.exe, maxInstances=15, platform=WIN10"
