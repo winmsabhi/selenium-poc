@@ -53,10 +53,13 @@ public class Executor {
 			e1.printStackTrace();
 		}
 		//ExcelUtils.getTestStepsCount(Constants.Sheet_TestSteps, testCaseName);
-		for (int irow = testStartRowNumber; irow <= testStepCount; irow++) {
+		for (int irow = testStartRowNumber; irow <= testStepCount-1; irow++) {
 			actionkeyword = ExcelUtils.getCellData(irow, Constants.Col_ActionKeyword, Constants.Sheet_TestSteps);
 			pageObject = ExcelUtils.getCellData(irow, Constants.Col_PageObject, Constants.Sheet_TestSteps);
+			System.out.println("Performing action " + actionkeyword + " on "+ pageObject);
+
 			try {
+
 				executeAction(actionkeyword, pageObject);
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
@@ -65,6 +68,11 @@ public class Executor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			/*finally {
+				if (driver!=null) driver.quit();
+				System.out.println("Closing the browser as " + actionkeyword + " on "+ pageObject +" failed");
+				break;
+			}*/
 		}
 		
 	}
