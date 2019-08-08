@@ -101,13 +101,3 @@ this.lastName = lastName;
 }
 
 
-
-Thanks and Regards,
-
-Abhilash Sharma                  1474865771841_logo.png
-Test Engineer
-
-E: abhilashsh@virtusapolaris.com | M: +91 9560604677
-
-www.virtusapolaris.com
-
